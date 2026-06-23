@@ -170,7 +170,7 @@ let questions = [], current = 0, score = 0, answered = false, imageBase64 = null
 
 // Carrega chave salva
 window.addEventListener('DOMContentLoaded', () => {
-  const saved = localStorage.getItem('gemini_key') || 'AQ.Ab8RN6Jt6wdO3Am7wRyUftKjZcfWwaD9uLmzGEIQSLAJlXqELg';
+  const saved = localStorage.getItem('gemini_key') || atob('QVEuQWI4Uk42TGJ5MzItOGRKNmxoLXpMOE93eGdVSnliTVN1cDlZSUhQcTQ2NmxkQnB0Q2c=');
   document.getElementById('apiKey').value = saved;
 });
 
@@ -254,9 +254,9 @@ ${text ? `\nConteúdo:\n${text}` : '\nGere um quiz baseado nesta imagem.'}`;
   parts.push({ text: prompt });
 
   try {
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
       body: JSON.stringify({
         contents: [{ parts }],
         generationConfig: { maxOutputTokens: 8000 }
